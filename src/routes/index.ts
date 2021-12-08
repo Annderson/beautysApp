@@ -1,0 +1,15 @@
+export default {
+  Establishments: 'Establishments',
+  EstablishmentsDetails: 'EstablishmentsDetails',
+  Home: 'Home',
+  InitialScreen: 'InitialScreen',
+  Login: 'Login',
+  LoggedNavigator: 'LoggedNavigator',
+  NotLoggedNavigator: 'NotLoggedNavigator',
+  Profile: 'Profile',
+  RegisterUser: 'RegisterUser',
+  Schedule: 'Schedule',
+  Settings: 'Settings',
+  Tabs: 'Tabs',
+  Welcome: 'Welcome',
+};
