@@ -4,10 +4,11 @@ export default {
   btnCancel: 'Cancelar horário',
   btnReSchedule: 'Agendar Novamente',
   listEmpty: 'Nenhum agendamento foi encontrado!',
-  nextSchedule: 'Meus próximas agendamentos',
+  nextSchedule: 'Meus próximos agendamentos',
   previousSchedule: 'Agendamentos finalizadas',
   success: 'Sucesso',
   actions: {
+    errorTimeSchedule: 'Selecione um horário para agendar!',
     errorCancelSchedule: 'Não foi possível cancelar o horário!',
     errorCancelTimeSchedule:
       'Só é possível cancelar agendamentos com 24 horas de antecedência!',

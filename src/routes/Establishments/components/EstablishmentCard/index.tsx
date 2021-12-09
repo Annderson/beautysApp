@@ -20,16 +20,8 @@ const images: any = {
 };
 */
 const EstablishmentCard = ({id, image, name, address}: Props): JSX.Element => {
-  /*
-  const [url, setUrl] = useState<any>();
-  console.log('image ', image);*/
   const {onClickNavigate} = useEstablishmentCard({id});
-  /*
-  useEffect(() => {
-    if (image) {
-      setUrl('http://192.168.1.254:3333/files/pessoa8.png​​​​​​​​​');
-    }
-  }, [image]);*/
+
   return (
     <TouchableOpacity style={styles.container} onPress={onClickNavigate}>
       <View style={styles.imgContainer}>

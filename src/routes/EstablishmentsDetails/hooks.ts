@@ -6,6 +6,11 @@ import moment from 'moment';
 import {Cooperator} from '@data/cooperator/types';
 import {UserAppointment} from '@data/schedule/types';
 import {Actions} from '@data/schedule/action';
+import {
+  Actions as NotificationActions,
+  TypeNotification,
+} from '@data/notification';
+import locales from '@locales/schedule';
 
 import routesName from '@routes/index';
 
@@ -38,21 +43,21 @@ const useEstablishmentsDetails = ({navigation}: any): Props => {
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
 
-  console.log('listCooperatorsMap ', cooperatorsMap);
-  console.log('cooperatorsSchedule  ', cooperatorsSchedule);
-
   const {params} = navigation.state;
 
   const onScheduleDate = useCallback(() => {
     const mon = moment(date + time, 'DD/MM/YYYY HH:mm');
-    console.log('onDateSelected  ', mon.toISOString());
-    console.log('.format(DD [de] MMM)  ', mon.format('lll'));
-    console.log('.format(D  ', {
-      user_id: userInfo.id,
-      cooperator_id: cooperator?.id || '',
-      procedure_id: cooperator?.procedure_id || '',
-      date: mon.toISOString(),
-    });
+
+    if (!time) {
+      dispatch(
+        NotificationActions.showNotification({
+          title: locales.error,
+          type: TypeNotification.error,
+          message: locales.actions.errorTimeSchedule,
+        }),
+      );
+      return;
+    }
 
     dispatch(
       Actions.postMakeSchedule({
@@ -91,7 +96,6 @@ const useEstablishmentsDetails = ({navigation}: any): Props => {
 
   const onDateSelected = (value: string) => {
     const newDate = value.split('/');
-    console.log('newDate ', newDate);
     onCooperatorsSchedule(+newDate[0], +newDate[1], +newDate[2]);
     setDate(value);
   };

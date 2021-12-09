@@ -80,7 +80,6 @@ function* postMakeSchedule({makeSchedule}: MakeScheduleRequest): SagaIterator {
       }),
     );
   } catch (error) {
-    console.log('locales.error ', error);
     yield put(
       NotificationActions.showNotification({
         title: locales.error,

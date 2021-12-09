@@ -60,7 +60,6 @@ function* updateUser({updateUser: user}: UpdateUserRequest): SagaIterator {
       }),
     );
   } catch (error) {
-    console.log('updateUser error ', error);
     yield put(
       NotificationActions.showNotification({
         title: locales.error,

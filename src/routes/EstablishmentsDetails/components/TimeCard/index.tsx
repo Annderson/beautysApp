@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {ScrollView, View, Text, TouchableOpacity} from 'react-native';
 import moment from 'moment';
 
@@ -23,7 +23,7 @@ const times = [
 ];
 
 const TimeCard = ({schedules, onTime}: Props): JSX.Element => {
-  const [hour, setHour] = useState(times[0]);
+  const [hour, setHour] = useState('');
 
   const onHour = useCallback(
     (time: string) => {
@@ -32,11 +32,6 @@ const TimeCard = ({schedules, onTime}: Props): JSX.Element => {
     },
     [onTime],
   );
-
-  useEffect(() => {
-    onTime(times[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <View style={styles.container}>

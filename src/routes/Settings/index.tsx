@@ -34,7 +34,7 @@ const Option = ({icon, name, onPress}: OptionProps): JSX.Element => (
 );
 
 const Settings = (): JSX.Element => {
-  const {onCloseApp, onNavigateProfile} = useSettings();
+  const {onCloseApp, onNavigateProfile, userName} = useSettings();
   return (
     <SafeAreaView style={styles.container}>
       <LightStatusBar />
@@ -46,7 +46,7 @@ const Settings = (): JSX.Element => {
             size={Dimensions.size30}
           />
         </View>
-        <Text style={styles.textName}>Anderson Lima</Text>
+        <Text style={styles.textName}>{userName}</Text>
       </View>
       <View style={styles.optionContainer}>
         <View style={styles.line} />
