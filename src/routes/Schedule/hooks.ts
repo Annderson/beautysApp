@@ -1,5 +1,8 @@
 import {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from 'react-navigation-hooks';
+
+import routesName from '@routes/index';
 
 import {Actions} from '@data/schedule/action';
 import {UserAppointment} from '@data/schedule/types';
@@ -13,15 +16,18 @@ interface Props {
   listProceduresMap: any;
   listEstablishmentsMap: any;
   onScheduleCancel: (cooperator_id: string, date: Date) => void;
+  onClickNavigate: (cooperator_id: string) => void;
 }
 
 const useSchedule = (): Props => {
+  const {navigate} = useNavigation();
+  const dispatch = useDispatch();
+
   const [listCooperatorsMap, setListCooperatorsMap] = useState<any>();
   const [listEstablishmentsMap, setListEstablishmentsMap] = useState<any>();
   const [listProceduresMap, setListProceduresMap] = useState<any>();
   const [listSchedules, setListSchedules] = useState<UserAppointment[]>([]);
 
-  const dispatch = useDispatch();
   const {cooperatorsMap} = useSelector((state: any) => state.cooperator);
   const {schedules} = useSelector((state: any) => state.schedule);
   const {proceduresMap} = useSelector((state: any) => state.procedure);
@@ -32,6 +38,15 @@ const useSchedule = (): Props => {
       dispatch(Actions.cancelSchedule(cooperator_id, date));
     },
     [dispatch],
+  );
+
+  const onClickNavigate = useCallback(
+    (cooperator_id: string) => {
+      navigate(routesName.EstablishmentsDetails, {
+        id: cooperator_id,
+      });
+    },
+    [navigate],
   );
 
   useEffect(() => {
@@ -71,6 +86,7 @@ const useSchedule = (): Props => {
     listCooperatorsMap,
     listProceduresMap,
     onScheduleCancel,
+    onClickNavigate,
   };
 };
 

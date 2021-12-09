@@ -17,6 +17,12 @@ interface ListScheduleProps {
   onScheduleCancel: Function;
 }
 
+const status = {
+  cancel: 'CANCELADA',
+  confirm: 'CONFIRMADA',
+  finish: 'FINALIZADA',
+};
+
 const PreviousSchedule = ({
   listCooperatorsMap,
   listProceduresMap,
@@ -34,15 +40,19 @@ const PreviousSchedule = ({
           return moment(item2.date).unix() - moment(item1.date).unix();
         })
         .filter((item: UserAppointment) => {
-          return moment().unix() > moment(item.date).unix();
+          return (
+            moment().unix() > moment(item.date).unix() ||
+            item.canceled_at !== null
+          );
         });
     return list && list.length > 0 ? (
       <View>
         <Text style={styles.title}>{locales.previousSchedule}</Text>
         {list.map((item: UserAppointment) => (
           <ScheduleCard
+            status={status.finish}
             key={item.id}
-            btnText={locales.btnCancel}
+            btnText={locales.btnReSchedule}
             isBtnSchedule={true}
             cooperatorName={listCooperatorsMap[item.cooperator_id].name}
             procedureName={
@@ -84,13 +94,17 @@ const NextSchedule = ({
         return moment(item1.date).unix() - moment(item2.date).unix();
       })
       .filter((item: UserAppointment) => {
-        return moment().unix() < moment(item.date).unix();
+        return (
+          moment().unix() < moment(item.date).unix() &&
+          item.canceled_at === null
+        );
       });
     return list && list.length > 0 ? (
       <View>
         {list.map((item: UserAppointment) => (
           <ScheduleCard
             key={item.id}
+            status={status.confirm}
             btnText={locales.btnCancel}
             isBtnSchedule={true}
             cooperatorName={listCooperatorsMap[item.cooperator_id].name}
@@ -129,6 +143,7 @@ const Schedule = (): JSX.Element => {
     listEstablishmentsMap,
     listProceduresMap,
     onScheduleCancel,
+    onClickNavigate,
   } = useSchedule();
 
   return (
@@ -149,7 +164,7 @@ const Schedule = (): JSX.Element => {
           listEstablishmentsMap={listEstablishmentsMap}
           listProceduresMap={listProceduresMap}
           listSchedules={listSchedules}
-          onScheduleCancel={onScheduleCancel}
+          onScheduleCancel={onClickNavigate}
         />
       </View>
     </ScrollView>

@@ -10,12 +10,8 @@ import EstablishmentsCard from './components/EstablishmentCard';
 import SearchInput from './components/SearchInput';
 
 const Establishments = (): JSX.Element => {
-  const {
-    establishmentList,
-    listCooperators,
-    listEstablishmentsMap,
-    listProceduresMap,
-  } = useEstablishment();
+  const {listCooperators, listEstablishmentsMap, listProceduresMap} =
+    useEstablishment();
   return (
     <View style={styles.root}>
       <DarkStatusBar />
@@ -25,7 +21,7 @@ const Establishments = (): JSX.Element => {
       <ScrollView style={styles.container}>
         <Text style={styles.textResults}>
           {locales.results} (
-          {establishmentList.length > 0 ? establishmentList.length : 0})
+          {listCooperators.length > 0 ? listCooperators.length : 0})
         </Text>
         {listEstablishmentsMap &&
           listProceduresMap &&
@@ -42,7 +38,7 @@ const Establishments = (): JSX.Element => {
                 listProceduresMap[item.procedure_id] &&
                 listProceduresMap[item.procedure_id].name
               }`}
-              image={item.image}
+              image={item.avatar}
             />
           ))}
       </ScrollView>

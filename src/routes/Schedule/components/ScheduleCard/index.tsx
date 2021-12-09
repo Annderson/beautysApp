@@ -6,13 +6,8 @@ import Button, {Variant} from '@components/Button';
 
 import styles from './styles';
 
-const status = {
-  cancel: 'CANCELADA',
-  confirm: 'CONFIRMADA',
-  finish: 'FINALIZADA',
-};
-
 interface Props {
+  status: string;
   address?: string;
   btnText: string;
   cooperatorName?: string;
@@ -22,8 +17,15 @@ interface Props {
   onPress: () => void;
 }
 
+const statusMap = {
+  cancel: 'CANCELADA',
+  confirm: 'CONFIRMADA',
+  finish: 'FINALIZADA',
+};
+
 const ScheduleCard = ({
   btnText,
+  status,
   cooperatorName,
   date,
   isBtnSchedule,
@@ -45,7 +47,14 @@ const ScheduleCard = ({
   return (
     <View style={styles.root}>
       <View style={styles.viewInfo}>
-        <Text style={styles.statusFinishText}>{status.confirm}</Text>
+        <Text
+          style={
+            status === statusMap.confirm
+              ? styles.statusFinishText
+              : styles.statusCancelText
+          }>
+          {status}
+        </Text>
         <Text style={styles.title}>{procedureName}</Text>
         <Text style={styles.subText2}>{cooperatorName}</Text>
         <Text style={styles.subText3}>{address}</Text>

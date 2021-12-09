@@ -1,5 +1,6 @@
 import {SagaIterator} from '@redux-saga/types';
 import {call, put, select, takeLatest} from 'redux-saga/effects';
+import moment from 'moment';
 
 import scheduleApi from '@data/api/schedule';
 import {setTokenInterceptor, getToken} from '@helpers/saga';
@@ -100,15 +101,31 @@ function* deleteSchedule({
     const cancel = {cooperator_id, date: date.toISOString()};
     yield call(scheduleApi.deleteSchedule, cancel);
     yield put(Actions.getSchedule());
-  } catch (error) {
-    console.log('locales.error ', error);
     yield put(
       NotificationActions.showNotification({
-        title: locales.error,
-        type: TypeNotification.error,
-        message: locales.actions.errorCancelSchedule,
+        title: locales.success,
+        type: TypeNotification.success,
+        message: locales.actions.successCancelSchedule,
       }),
     );
+  } catch (error: any) {
+    if (moment().diff(new Date(date), 'days') === 0) {
+      yield put(
+        NotificationActions.showNotification({
+          title: locales.error,
+          type: TypeNotification.error,
+          message: locales.actions.errorCancelTimeSchedule,
+        }),
+      );
+    } else {
+      yield put(
+        NotificationActions.showNotification({
+          title: locales.error,
+          type: TypeNotification.error,
+          message: locales.actions.errorCancelSchedule,
+        }),
+      );
+    }
   }
 }
 

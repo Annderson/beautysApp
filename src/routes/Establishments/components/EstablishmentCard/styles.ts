@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   img: {
     borderRadius: Dimensions.size5,
     height: Dimensions.size200,
-    width: Dimensions.fullSize,
+    width: Dimensions.size200,
     resizeMode: 'stretch',
   },
   title: {

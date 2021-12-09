@@ -92,8 +92,12 @@ const postMakeSchedule = async (makeSchedule: MakeSchedule): Promise<void> => {
 };
 
 const deleteSchedule = async (cancelSchedule: any): Promise<void> => {
-  console.log('cancelSchedule ', cancelSchedule);
-  await endpoint.delete('/appointments/me', cancelSchedule);
+  await endpoint.delete('/appointments/me', {
+    data: {
+      cooperator_id: cancelSchedule.cooperator_id,
+      date: cancelSchedule.date,
+    },
+  });
 };
 
 export default {
