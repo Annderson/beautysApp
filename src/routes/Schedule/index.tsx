@@ -54,12 +54,18 @@ const PreviousSchedule = ({
             key={item.id}
             btnText={locales.btnReSchedule}
             isBtnSchedule={true}
-            cooperatorName={listCooperatorsMap[item.cooperator_id].name}
+            cooperatorName={
+              listCooperatorsMap &&
+              listCooperatorsMap[item.cooperator_id] &&
+              listCooperatorsMap[item.cooperator_id].name
+            }
             procedureName={
+              listProceduresMap &&
               listProceduresMap[item.procedure_id] &&
               listProceduresMap[item.procedure_id].name
             }
             address={
+              listEstablishmentsMap &&
               listEstablishmentsMap[
                 listCooperatorsMap[item.cooperator_id].estab_id
               ].endereco

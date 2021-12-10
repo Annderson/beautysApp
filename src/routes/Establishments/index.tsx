@@ -12,6 +12,7 @@ import SearchInput from './components/SearchInput';
 const Establishments = (): JSX.Element => {
   const {listCooperators, listEstablishmentsMap, listProceduresMap} =
     useEstablishment();
+
   return (
     <View style={styles.root}>
       <DarkStatusBar />
